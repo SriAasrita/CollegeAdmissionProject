@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Admissions.Student.StudentRegistration" table="student_registration_information">
+        <id name="RegID" type="int">
+            <column name="RegistrationId"/>
+            <generator class="identity"/>
+        </id>
+        
+       
+        <component name="studentname" class="Admissions.Student.Name">
+            <property name="firstname" column="student_first_name" type="string"/>
+            <property name="middlename" column="student_middle_name" type="string"/>
+            <property name="lastname" column="student_last_name" type="string"/>
+        </component>
+
+        <component name="fathername" class="Admissions.Student.Name">
+            <property name="firstname" column="father_first_name" type="string"/>
+            <property name="middlename" column="father_Middle_name" type="string"/>
+            <property name="lastname" column="father_last_name" type="string"/>
+        </component>
+        
+        <property name="DOB" type = "java.time.LocalDate">
+            <column name="DOB"/>
+        </property>
+        <property name="Intermediate_Marks" type="double">
+            <column name="Intermediate_Marks"/>
+        </property>
+        <property name="Gender" type="string">
+            <column name="Gender"/>
+        </property>
+        <property name="Phone_No" type="long">
+            <column name="Phone_No"/>
+        </property>
+        <property name="mail" type="string">
+            <column name="mail"/>
+        </property>
+        <component name="address" class="Admissions.Student.Address">
+			<property name="Address_Door_No" column="DoorNo"/>
+            <property name="Address_Street" column="street"/>
+            <property name="Address_City" column="city"/>
+            <property name="Address_Pin_Code" column="Pin_code"/>
+        </component>
+        <property name="Adhar_no" type="long">
+            <column name="Adhar_no"/>
+        </property>
+       <component name="priority" class="Admissions.Student.CoursePriority">
+            <property name="Priority1" column="Priority_1" type="string"/>
+            <property name="Priority2" column="Priority_2" type="string"/>
+            <property name="Priority3" column="Priority_3" type="string"/>
+        </component>
+    </class>
+    <!-- Admin Class-->
+    <class name="Admissions.admins.Admin" table="admin">
+        <id name="RegID" type="int">
+        </id>
+        <!-- ... other properties ... -->
+        <property name="InterMark" type="double"/>
+        <property name="Priority_1" type="string"/>
+        <property name="Priority_2" type="string"/>
+        <property name="Priority_3" type="string"/>
+        <property name="AllocatedSeat" type="string"/>
+
+        <!-- Define the one-to-one mapping with StdRegForm -->
+        <one-to-one name="stdRegForm" class="Admissions.Student.StudentRegistration" constrained="true" />
+        
+    </class>
+    <class name="com.authentication.Login" table="users">
+    <id name="id" type="int">
+        <column name="id"/>
+        <generator class="identity"/>
+    </id>
+    <property name="username" column="username"/> <!-- Specify column name -->
+    <property name="password" column="password"/> <!-- Specify column name -->
+	</class>  
+     
+      <class name="Admission.courses.Course" table="Courses">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="courseCode" type="string">
+            <column name="courseCode" />
+        </property>
+        <property name="courseName" type="string">
+            <column name="courseName" />
+        </property>
+        
+		<property name="totalSeats" type="int">
+   		 <column name="totalSeats" />
+		</property>
+		<property name="allocatedSeats" type="int">
+  	  <column name="allocatedSeats" />
+		</property>
+		<property name="availableSeats" type="int">
+    	<column name="availableSeats" />
+		</property>
+    </class>
+
+</hibernate-mapping>
